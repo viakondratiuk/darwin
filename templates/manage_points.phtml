@@ -1,0 +1,26 @@
+<div class="container">
+    <form action="manage_points.php" method="post">
+        <fieldset>
+            <legend>Save user points</legend>
+            <label for="user_id">Last Name:</label>
+            <select name="user_id" id="user_id" required>
+                <option value=""></option>
+                <option value="1">Галанзовский</option>
+                <option value="2">Железницкий</option>
+                <option value="3">Мартынюк</option>
+            </select>
+            <label for="points">Points:</label>
+            <input type="text" name="points" id="points" required/>
+            <label for="comment">Comment:</label>
+            <textarea name="comment" id="comment" cols="30" rows="10" required></textarea>
+            <label for="type_id">Type:</label>
+            <select name="type_id" id="type_id" required>
+                <option value=""></option>
+                <option value="1">Balance</option>
+                <option value="2">Spend</option>
+            </select>
+            <br>
+            <input type="submit" value="Save"/>
+        </fieldset>
+    </form>
+</div>
