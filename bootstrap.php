@@ -26,7 +26,7 @@ class Services {
 
 class DataMigration {
     const DB_MIGRATION_DIR = 'db/migration';
-    const DB_MIGRATION_PROGRESS = 'db/progress.json';
+    const DB_MIGRATION_PROGRESS = 'db/progress.txt';
 
     public static function run()
     {
@@ -37,7 +37,7 @@ class DataMigration {
 
     protected static function getExcludeFiles()
     {
-        $excludeFiles = json_decode(file_get_contents(self::DB_MIGRATION_PROGRESS));
+        $excludeFiles = explode("\n", file_get_contents(self::DB_MIGRATION_PROGRESS));
         $excludeFiles[] = '.';
         $excludeFiles[] = '..';
 
@@ -70,7 +70,7 @@ class DataMigration {
                     echo '<b>' . $e->getMessage() . '</b>';
                 }
             }
-            file_put_contents(self::DB_MIGRATION_PROGRESS, json_encode($updateFiles), FILE_APPEND | LOCK_EX);
+            file_put_contents(self::DB_MIGRATION_PROGRESS, $updateFile."\n", FILE_APPEND | LOCK_EX);
         }
     }
 }
@@ -78,42 +78,6 @@ class DataMigration {
 DataMigration::run();
 
 /*try {
-    $db = Services::getDBConnection();
-    $db->exec(
-        "CREATE TABLE IF NOT EXISTS points (
-                    user_id INTEGER PRIMARY KEY,
-                    last_name TEXT,
-                    points INTEGER,
-                    used INTEGER,
-                    available INTEGER
-        )"
-    );
-    $db->exec(
-        "CREATE TABLE IF NOT EXISTS points_history (
-                    history_id INTEGER PRIMARY KEY,
-                    user_id INTEGER,
-                    points INTEGER,
-                    comment TEXT,
-                    type INTEGER
-        )"
-    );
-    $db->exec(
-        "CREATE TABLE IF NOT EXISTS points_market (
-                    market_id INTEGER PRIMARY KEY,
-                    points INTEGER,
-                    description TEXT,
-                    type INTEGER,
-                    active INTEGER
-        )"
-    );
-    $db->exec(
-        "CREATE TABLE IF NOT EXISTS plan (
-                    plan_id INTEGER PRIMARY KEY,
-                    date NUMERIC,
-                    agenda TEXT
-        )"
-    );
-
     $man = array(
         array(
             'last_name' => 'Galanzovskiy',
