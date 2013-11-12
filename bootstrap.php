@@ -10,12 +10,12 @@
 date_default_timezone_set('UTC');
 
 class Services {
-    protected  static $services = array();
+    protected static $services = array();
 
     public static function getDBConnection()
     {
         if (!isset(self::$services['dbconnection'])) {
-            $db = new PDO('sqlite:db/4man.sqlite3');
+            $db = new PDO('sqlite:db/points-manager.sqlite3');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$services['dbconnection'] = $db;
         }
@@ -24,7 +24,60 @@ class Services {
     }
 }
 
-try {
+class DataMigration {
+    const DB_MIGRATION_DIR = 'db/migration';
+    const DB_MIGRATION_PROGRESS = 'db/progress.json';
+
+    public static function run()
+    {
+        $excludeFiles = self::getExcludeFiles();
+        $updateFiles = self::getUpdateFiles($excludeFiles);
+        self::applyUpdates($updateFiles);
+    }
+
+    protected static function getExcludeFiles()
+    {
+        $excludeFiles = json_decode(file_get_contents(self::DB_MIGRATION_PROGRESS));
+        $excludeFiles[] = '.';
+        $excludeFiles[] = '..';
+
+        return $excludeFiles;
+    }
+
+    protected static function getUpdateFiles($excludeFiles)
+    {
+        if ($handle = opendir(self::DB_MIGRATION_DIR)) {
+            while (false !== ($updateFile = readdir($handle))) {
+                if (!in_array($updateFile, $excludeFiles)) {
+                    $updateFiles[] = $updateFile;
+                }
+            }
+            closedir($handle);
+        }
+
+        return $updateFiles;
+    }
+
+    protected static function applyUpdates($updateFiles)
+    {
+        foreach ($updateFiles as $updateFile) {
+            $sql = include (self::DB_MIGRATION_DIR . DIRECTORY_SEPARATOR . $updateFile);
+            $db = Services::getDBConnection();
+            foreach ($sql as $query) {
+                try {
+                    $db->exec($query);
+                } catch(PDOException $e) {
+                    echo '<b>' . $e->getMessage() . '</b>';
+                }
+            }
+            file_put_contents(self::DB_MIGRATION_PROGRESS, json_encode($updateFiles), FILE_APPEND | LOCK_EX);
+        }
+    }
+}
+
+DataMigration::run();
+
+/*try {
     $db = Services::getDBConnection();
     $db->exec(
         "CREATE TABLE IF NOT EXISTS points (
@@ -61,7 +114,7 @@ try {
         )"
     );
 
-    /*$man = array(
+    $man = array(
         array(
             'last_name' => 'Galanzovskiy',
             'points' => 0,
@@ -103,9 +156,9 @@ try {
 
         // Execute statement
         $stmt->execute();
-    }*/
+    }
 
-    /*$result = $db->query('SELECT * FROM points');
+    $result = $db->query('SELECT * FROM points');
 
     foreach($result as $row) {
         echo "Last Name: " . $row['last_name'] . "<br>";
@@ -113,7 +166,7 @@ try {
         echo "Used: " . $row['used'] . "<br>";
         echo "Available: " . $row['available'] . "<br>";
         echo "<br>";
-    }*/
+    }
 } catch(PDOException $e) {
     echo '<b>' . $e->getMessage() . '</b>';
-}
+}*/
