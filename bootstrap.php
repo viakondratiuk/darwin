@@ -75,6 +75,13 @@ class DataMigration {
     }
 }
 
+class Factory {
+    public function getModel($name)
+    {
+            
+    }
+}
+
 DataMigration::run();
 
 /*try {

@@ -1,21 +1,20 @@
 <?php
-
 include 'bootstrap.php';
 
-require_once 'templates/header.phtml';
+require_once 'app/templates/header.phtml';
 
 $mode = isset($_GET['mode']) ?: 'points_overview';
 
 switch($mode) {
     case 'points_overview':
-        require_once 'templates/dashboard.phtml';
+        require_once 'app/templates/dashboard.phtml';
         break;
     case 'points_manage':
-        require_once 'templates/manage_points.phtml';
+        require_once 'app/templates/points_manage.phtml';
         break;
     default:
-        require_once 'templates/dashboard.phtml';
+        require_once 'app/templates/dashboard.phtml';
         break;
 }
 
-require_once 'templates/footer.phtml';
+require_once 'app/templates/footer.phtml';
