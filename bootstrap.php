@@ -8,6 +8,8 @@
 
 // Set default timezone
 date_default_timezone_set('UTC');
+define('POINTS_BALANCE', 1);
+define('POINTS_SPEND', 2);
 
 class Services {
     protected static $services = array();
@@ -52,6 +54,7 @@ class DataMigration {
                     $updateFiles[] = $updateFile;
                 }
             }
+            sort($updateFiles);
             closedir($handle);
         }
 
@@ -61,15 +64,7 @@ class DataMigration {
     protected static function applyUpdates($updateFiles)
     {
         foreach ($updateFiles as $updateFile) {
-            $sql = include (self::DB_MIGRATION_DIR . DIRECTORY_SEPARATOR . $updateFile);
-            $db = Services::getDBConnection();
-            foreach ($sql as $query) {
-                try {
-                    $db->exec($query);
-                } catch(PDOException $e) {
-                    echo '<b>' . $e->getMessage() . '</b>';
-                }
-            }
+            include (self::DB_MIGRATION_DIR . DIRECTORY_SEPARATOR . $updateFile);
             file_put_contents(self::DB_MIGRATION_PROGRESS, $updateFile."\n", FILE_APPEND | LOCK_EX);
         }
     }
@@ -83,61 +78,3 @@ class Factory {
 }
 
 DataMigration::run();
-
-/*try {
-    $man = array(
-        array(
-            'last_name' => 'Galanzovskiy',
-            'points' => 0,
-            'used' => 0,
-            'available' => 0,
-        ),
-        array(
-            'last_name' => 'Martyniuk',
-            'points' => 0,
-            'used' => 0,
-            'available' => 0,
-        ),
-        array(
-            'last_name' => 'Zheleznitskij',
-            'points' => 0,
-            'used' => 0,
-            'available' => 0,
-        ),
-    );
-
-    // Prepare INSERT statement to SQLite3 file db
-    $insert = "INSERT INTO points (last_name, points, used, available)
-                VALUES (:last_name, :points, :used, :available)";
-    $stmt = $db->prepare($insert);
-
-    // Bind parameters to statement variables
-    $stmt->bindParam(':last_name', $last_name);
-    $stmt->bindParam(':points', $points);
-    $stmt->bindParam(':used', $used);
-    $stmt->bindParam(':available', $available);
-
-    // Loop thru all messages and execute prepared insert statement
-    foreach ($man as $m) {
-        // Set values to bound variables
-        $last_name = $m['last_name'];
-        $points = $m['points'];
-        $used = $m['used'];
-        $available = $m['available'];
-
-        // Execute statement
-        $stmt->execute();
-    }
-
-    $result = $db->query('SELECT * FROM points');
-
-    foreach($result as $row) {
-        echo "Last Name: " . $row['last_name'] . "<br>";
-        echo "Points: " . $row['points'] . "<br>";
-        echo "Used: " . $row['used'] . "<br>";
-        echo "Available: " . $row['available'] . "<br>";
-        echo "<br>";
-    }
-} catch(PDOException $e) {
-    echo '<b>' . $e->getMessage() . '</b>';
-}*/

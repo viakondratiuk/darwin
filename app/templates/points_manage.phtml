@@ -1,26 +1,31 @@
-<div class="container">
-    <form action="app/models/points_manage.php" method="post">
-        <fieldset>
-            <legend>Save user points</legend>
-            <label for="user_id">Last Name:</label>
-            <select name="user_id" id="user_id" required>
-                <option value=""></option>
-                <option value="1">Галанзовский</option>
-                <option value="2">Железницкий</option>
-                <option value="3">Мартынюк</option>
-            </select>
-            <label for="points">Points:</label>
-            <input type="text" name="points" id="points" required/>
-            <label for="comment">Comment:</label>
-            <textarea name="comment" id="comment" cols="30" rows="10" required></textarea>
-            <label for="type_id">Type:</label>
-            <select name="type_id" id="type_id" required>
-                <option value=""></option>
-                <option value="1">Balance</option>
-                <option value="2">Spend</option>
-            </select>
-            <br>
-            <input type="submit" value="Save"/>
-        </fieldset>
-    </form>
-</div>
+<?php $db = Services::getDBConnection() ?>
+<?php $users = $db->query('SELECT user_id, last_name FROM points'); ?>
+
+<form action="index.php?mode=points_manage_save" method="post">
+    <input name="mode" type="hidden" value="points_manage_save" />
+    <fieldset>
+        <legend>Сохранить очки</legend>
+        <?php if(isset($_GET['save']) && $_GET['save']): ?>
+            <p class="text-success">Данные успешно сохранены.</p>
+        <?php endif; ?>
+        <label for="user_id">Фамилия:</label>
+        <select name="user_id" id="user_id" required>
+            <option value=""></option>
+        <?php foreach($users as $user) : ?>
+            <option value="<?php echo $user['user_id'] ?>"><?php echo $user['last_name'] ?></option>
+        <?php endforeach; ?>
+        </select>
+        <label for="points">Очки:</label>
+        <input type="text" name="points" id="points" required/>
+        <label for="comment">Комментарий:</label>
+        <textarea name="comment" id="comment" cols="30" rows="10" required></textarea>
+        <label for="type_id">Тип:</label>
+        <select name="type_id" id="type_id" required>
+            <option value=""></option>
+            <option value="<?php echo POINTS_BALANCE ?>">Баланс</option>
+            <option value="<?php echo POINTS_SPEND ?>">Потрачено</option>
+        </select>
+        <br>
+        <input type="submit" value="Сохранить"/>
+    </fieldset>
+</form>

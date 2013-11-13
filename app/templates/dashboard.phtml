@@ -1,5 +1,5 @@
 <?php $db = Services::getDBConnection() ?>
-<?php $result = $db->query('SELECT * FROM points'); ?>
+<?php $users = $db->query('SELECT * FROM points'); ?>
 <div class="container">
     <table id="points">
         <thead>
@@ -11,7 +11,7 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach($result as $row) : ?>
+        <?php foreach($users as $row) : ?>
             <tr>
                 <td><?php echo $row['last_name'] ?></td>
                 <td><?php echo $row['points'] ?></td>
