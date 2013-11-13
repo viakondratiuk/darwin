@@ -20,7 +20,8 @@ $sql = array(
             user_id INTEGER,
             points INTEGER,
             comment TEXT,
-            type_id INTEGER
+            type_id INTEGER,
+            date date
         )"
 );
 

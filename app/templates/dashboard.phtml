@@ -5,8 +5,9 @@
         <thead>
         <tr>
             <th>Фамилия</th>
-            <th>Очков</th>
-            <th>Доступно</th>
+            <th>Плюс</th>
+            <th>Минус</th>
+            <th>Баланс</th>
             <th>Потрачено</th>
         </tr>
         </thead>
@@ -14,9 +15,10 @@
         <?php foreach($users as $row) : ?>
             <tr>
                 <td><?php echo $row['last_name'] ?></td>
+                <td><?php echo $row['available'] ?></td>
                 <td><?php echo $row['points'] ?></td>
                 <td><?php echo $row['used'] ?></td>
-                <td><?php echo $row['available'] ?></td>
+                <td><?php echo $row['used'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
