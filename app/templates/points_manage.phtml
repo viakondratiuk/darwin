@@ -1,5 +1,5 @@
 <?php $db = Services::getDBConnection() ?>
-<?php $users = $db->query('SELECT user_id, last_name FROM points'); ?>
+<?php $users = $db->query('SELECT user_id, last_name FROM points') ?>
 
 <form action="index.php?mode=points_manage_save" method="post">
     <input name="mode" type="hidden" value="points_manage_save" />
@@ -21,8 +21,7 @@
         <textarea name="comment" id="comment" cols="30" rows="10" required></textarea>
         <label for="type_id">Тип:</label>
         <select name="type_id" id="type_id" required>
-            <option value=""></option>
-            <option value="<?php echo POINTS_BALANCE ?>">Баланс</option>
+            <option value="<?php echo POINTS_BALANCE ?>" selected>Баланс</option>
             <option value="<?php echo POINTS_SPEND ?>">Потрачено</option>
         </select>
         <br>

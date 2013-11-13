@@ -17,6 +17,8 @@ try {
     $stmt->bindParam(':comment', $_POST['comment']);
     $stmt->bindParam(':type_id', $_POST['type_id']);
     $stmt->execute();
+
+    $users = $db->query("SELECT SUM(points), user_id, type_id FROM points_history GROUP BY user_id, type_id");
 } catch(PDOException $e) {
     echo '<b>' . $e->getMessage() . '</b>';
 }
