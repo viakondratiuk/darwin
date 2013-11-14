@@ -10,39 +10,44 @@ try {
     $users = array(
         array(
             'last_name' => 'Галанзовский',
-            'points' => 0,
-            'used' => 0,
-            'available' => 0,
+            'positive' => 0,
+            'negative' => 0,
+            'balance' => 0,
+            'spend' => 0
         ),
         array(
             'last_name' => 'Мартынюк',
-            'points' => 0,
-            'used' => 0,
-            'available' => 0,
+            'positive' => 0,
+            'negative' => 0,
+            'balance' => 0,
+            'spend' => 0
         ),
         array(
             'last_name' => 'Железницкий',
-            'points' => 0,
-            'used' => 0,
-            'available' => 0,
+            'positive' => 0,
+            'negative' => 0,
+            'balance' => 0,
+            'spend' => 0
         ),
     );
 
-    $insert = "INSERT INTO points (last_name, points, used, available)
-                VALUES (:last_name, :points, :used, :available)";
+    $insert = "INSERT INTO points (last_name, positive, negative, balance, spend)
+                VALUES (:last_name, :positive, :negative, :balance, :spend)";
     $stmt = $db->prepare($insert);
 
     $stmt->bindParam(':last_name', $last_name);
-    $stmt->bindParam(':points', $points);
-    $stmt->bindParam(':used', $used);
-    $stmt->bindParam(':available', $available);
+    $stmt->bindParam(':positive', $positive);
+    $stmt->bindParam(':negative', $negative);
+    $stmt->bindParam(':balance', $balance);
+    $stmt->bindParam(':spend', $spend);
 
     foreach ($users as $user) {
         // Set values to bound variables
         $last_name = $user['last_name'];
-        $points = $user['points'];
-        $used = $user['used'];
-        $available = $user['available'];
+        $positive  = $user['positive'];
+        $negative  = $user['negative'];
+        $balance   = $user['balance'];
+        $spend     = $user['spend'];
 
         // Execute statement
         $stmt->execute();

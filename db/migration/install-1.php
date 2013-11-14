@@ -11,9 +11,10 @@ $sql = array(
     0 => "CREATE TABLE IF NOT EXISTS points (
             user_id INTEGER PRIMARY KEY,
             last_name TEXT,
-            points INTEGER,
-            used INTEGER,
-            available INTEGER
+            positive INTEGER,
+            negative INTEGER,
+            balance INTEGER,
+            spend INTEGER
         )",
     1 => "CREATE TABLE IF NOT EXISTS points_history (
             history_id INTEGER PRIMARY KEY,

@@ -1,3 +1,4 @@
+<?php $mode = !empty($_GET['mode']) ? $_GET['mode'] : '' ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,20 +16,10 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/tablesorter/jquery.tablesorter.min.js"></script>
     <script src="js/tablesorter/jquery.tablesorter.widgets.min.js"></script>
-    <script>
-        $(function() {
-            $('table#points').tablesorter({
-                theme : 'bootstrap',
-                sortList: [[1,1]],
-                headerTemplate: '{content} {icon}',
-                widgets    : ['zebra','columns', 'uitheme']
-            });
-        });
-    </script>
 </head>
 <body>
 <div class="container">
-    <ul>
-        <li><a href="index.php">Просмотр очков</a></li>
-        <li><a href="index.php?mode=points_manage">Управление очками</a></li>
+    <ul class="nav nav-pills">
+        <li <?php if($mode == ''): ?>class="active"<?php endif; ?>><a href="index.php">Просмотр</a></li>
+        <li <?php if($mode == 'points_manage'): ?>class="active"<?php endif; ?>><a href="index.php?mode=points_manage">Управление</a></li>
     </ul>

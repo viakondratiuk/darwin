@@ -1,5 +1,15 @@
 <?php $db = Services::getDBConnection() ?>
 <?php $users = $db->query('SELECT * FROM points'); ?>
+<script>
+    $(function() {
+        $('table#points').tablesorter({
+            theme : 'bootstrap',
+            sortList: [[3,1]],
+            headerTemplate: '{content} {icon}',
+            widgets    : ['zebra','columns', 'uitheme']
+        });
+    });
+</script>
 <div class="container">
     <table id="points">
         <thead>
@@ -15,10 +25,10 @@
         <?php foreach($users as $row) : ?>
             <tr>
                 <td><?php echo $row['last_name'] ?></td>
-                <td><?php echo $row['available'] ?></td>
-                <td><?php echo $row['points'] ?></td>
-                <td><?php echo $row['used'] ?></td>
-                <td><?php echo $row['used'] ?></td>
+                <td><?php echo $row['positive'] ?></td>
+                <td><?php echo $row['negative'] ?></td>
+                <td><?php echo $row['balance'] ?></td>
+                <td><?php echo $row['spend'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
