@@ -9,7 +9,7 @@
 
 class PointsManager {
 
-    public function modifyPointsHistory()
+    public static function savePointsHistory()
     {
         $db = Services::getDBConnection();
         try {
@@ -29,7 +29,7 @@ class PointsManager {
         }
     }
 
-    public function modifyPoints()
+    public static function recalculateUserPoints()
     {
         $db = Services::getDBConnection();
 
@@ -58,10 +58,25 @@ class PointsManager {
             echo '<b>' . $e->getMessage() . '</b>';
         }
     }
+
+    public static function save()
+    {
+        self::savePointsHistory();
+        self::recalculateUserPoints();
+    }
 }
 
-$pointsManager = new PointsManager();
-$pointsManager->modifyPointsHistory();
-$pointsManager->modifyPoints();
+$mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
 
-header('Location: index.php?mode=points_manage&save=1');
+switch($mode) {
+    case 'points_form_save':
+        PointsManager::save();
+        header('Location: index.php?mode=points_form&save=1');
+        break;
+    default:
+        header('Location: index.php?mode=points_form');
+        break;
+}
+
+
+

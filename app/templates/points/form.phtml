@@ -1,8 +1,8 @@
 <?php $db = Services::getDBConnection() ?>
 <?php $users = $db->query('SELECT user_id, last_name FROM points') ?>
 
-<form action="index.php?mode=points_manage_save" method="post">
-    <input name="mode" type="hidden" value="points_manage_save" />
+<form action="index.php?mode=points_form_save" method="post">
+    <input name="mode" type="hidden" value="points_form_save" />
     <fieldset>
         <legend>Сохранить очки</legend>
         <?php if(isset($_GET['save']) && $_GET['save']): ?>
