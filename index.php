@@ -15,6 +15,9 @@ switch($mode) {
     case 'points_form_save':
         require_once 'app/models/pointsManager.php';
         break;
+    case 'plan':
+        require_once 'app/templates/plan/view.phtml';
+        break;
     default:
         require_once 'app/templates/dashboard.phtml';
         break;

@@ -1,5 +1,5 @@
 <?php $db = Services::getDBConnection() ?>
-<?php $users = $db->query('SELECT * FROM points'); ?>
+<?php $users = $db->query('SELECT * FROM points') ?>
 <script>
     $(function() {
         $('table#points').tablesorter({

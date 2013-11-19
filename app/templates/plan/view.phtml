@@ -1,0 +1,52 @@
+<?php $db = Services::getDBConnection() ?>
+<?php $users = $db->query('SELECT date, agenda FROM plan') ?>
+<script>
+    $(function() {
+        $('table#plan').tablesorter({
+            theme : 'bootstrap',
+            sortList: [[0,1]],
+            headerTemplate: '{content} {icon}',
+            widgets    : ['zebra','columns', 'uitheme']
+        });
+    });
+</script>
+<div class="container">
+    <table id="plan">
+        <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($users as $row) : ?>
+            <tr>
+                <td width="20%"><?php echo $row['date'] ?></td>
+                <td><?php echo $row['agenda'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<ol>
+    <li>https://github.com/4man/copernicus/issues/13  Если в пн: +10 Серый, Дима, +30 Артур, нет -5 Артур, частично - 0</li>
+    <li>Дима:  таблица с представлением push/pop, shift/unshift, SPL: stack, queue, linked list, Class, измерить время и память, показать на разном кол-ве элеентов +1</li>
+    <li>МарияДБ. +5</li>
+    <li>Коммит на гитхаб. +1</li>
+    <li>Стековерфлоу заработать 100 баллов: через 2 недели +15, после +10</li>
+    <li>InnoDB как изменяется место +1</li>
+    <li>Какой механизм для чего: MyISAM, InnoDB (select, insert, update, delete), white paper +1</li>
+</ol>
+<p>Не отвечаете на вопрос: -1</p>
+<p>Обманываете: -50</p>
+<p>Что-то мне не нравится: -на_месте_разберемся</p>
+<p>Вы можете придумать как использовать очки, я назначу за это количество баллов.</p>
+<p>Ссылки:</p>
+<ul>
+    <li><a href="https://wiki.php.net/rfc">PHP-RFC</a></li>
+    <li><a href="http://php.net/mailing-lists.php">PHP Mailing Lists</a></li>
+    <li><a href="http://www.php-fig.org/">PHP FIG</a></li>
+    <li><a href="http://www.unicode.org/faq/utf_bom.html">UTF BOM</a> </li>
+    <li><a href="http://www.youtube.com/watch?v=IPogLMRBZ4o">Ричард Фейнман: Магниты и вопросы "почему?"</a></li>
+</ul>
