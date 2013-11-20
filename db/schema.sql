@@ -91,8 +91,8 @@ CREATE TABLE IF NOT EXISTS link_groups (
 );
 
 INSERT INTO link_groups (group_id, name) VALUES (1, 'PHP');
-INSERT INTO link_groups (group_id, name) VALUES (2, 'UTF');
-INSERT INTO link_groups (group_id, name) VALUES (3, 'Общее');
+INSERT INTO link_groups (group_id, name) VALUES (2, 'Кодировки');
+INSERT INTO link_groups (group_id, name) VALUES (3, 'Общее развитие');
 
 CREATE TABLE IF NOT EXISTS links (
   link_id INTEGER PRIMARY KEY NOT NULL,
