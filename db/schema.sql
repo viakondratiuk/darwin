@@ -1,3 +1,18 @@
+-- user_id: 1 - Галанзовский, 2 - Мартынюк, 3 - Железницкий
+-- type_id: 1 - balance, 2 - market
+--INSERT INTO history (user_id, points, comment, type_id)
+--  VALUES (user_id, points, 'Комментарий', type_id);
+
+--INSERT INTO market (points, description, active)
+--  VALUES (points, 'description', active);
+
+--INSERT INTO plans (agenda) VALUES ('agenda');
+
+--INSERT INTO link_groups (name) VALUES ('name');
+
+-- group_id: 1 - PHP, 2 - Кодировки, 3 - Общее развитие
+--INSERT INTO links (group_id, title, href) VALUES (group_id, 'title', 'href');
+
 CREATE TABLE IF NOT EXISTS users (
   user_id INTEGER PRIMARY KEY NOT NULL,
   last_name TEXT NOT NULL
