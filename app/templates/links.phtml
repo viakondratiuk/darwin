@@ -1,0 +1,39 @@
+<?php
+    $db = Services::getDBConnection();
+    $links = $db->query(
+        'SELECT lg.name AS group_name, l.title, l.href, l.created
+           FROM links AS l
+           INNER JOIN link_groups AS lg ON l.group_id = lg.group_id
+         ORDER BY group_name, created DESC'
+    );
+?>
+<script>
+    $(function() {
+        $('table#links').tablesorter({
+            theme : 'bootstrap',
+            sortList: [[2,1]],
+            headerTemplate: '{content} {icon}',
+            widgets    : ['zebra','columns', 'uitheme']
+        });
+    });
+</script>
+<div class="container">
+    <table id="links">
+        <thead>
+        <tr>
+            <th>Группа</th>
+            <th>Ссылка</th>
+            <th>Создано</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($links as $link): ?>
+            <tr>
+                <td><?php echo $link['group_name'] ?></td>
+                <td><a href="<?php echo $link['href'] ?>"><?php echo $link['title'] ?></a></td>
+                <td><?php echo $link['created'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

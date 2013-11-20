@@ -3,23 +3,20 @@ include 'bootstrap.php';
 
 require_once 'app/templates/header.phtml';
 
-$mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : 'dashboard';
+$mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : 'points';
 
 switch($mode) {
-    case 'dashboard':
-        require_once 'app/templates/dashboard.phtml';
+    case 'points':
+        require_once 'app/templates/points.phtml';
         break;
-    case 'points_form':
-        require_once 'app/templates/points/form.phtml';
+    case 'plans':
+        require_once 'app/templates/plans.phtml';
         break;
-    case 'points_form_save':
-        require_once 'app/models/pointsManager.php';
-        break;
-    case 'plan':
-        require_once 'app/templates/plan/view.phtml';
+    case 'links':
+        require_once 'app/templates/links.phtml';
         break;
     default:
-        require_once 'app/templates/dashboard.phtml';
+        require_once 'app/templates/points.phtml';
         break;
 }
 

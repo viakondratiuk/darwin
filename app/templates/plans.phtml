@@ -1,0 +1,32 @@
+<?php
+    $db = Services::getDBConnection();
+    $plans = $db->query('SELECT agenda, created FROM plans ORDER BY created DESC LIMIT 10');
+?>
+<script>
+    $(function() {
+        $('table#plan').tablesorter({
+            theme : 'bootstrap',
+            sortList: [[0,1]],
+            headerTemplate: '{content} {icon}',
+            widgets    : ['zebra','columns', 'uitheme']
+        });
+    });
+</script>
+<div class="container">
+    <table id="plan">
+        <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($plans as $plan) : ?>
+            <tr>
+                <td width="20%"><?php echo $plan['created'] ?></td>
+                <td><?php echo $plan['agenda'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

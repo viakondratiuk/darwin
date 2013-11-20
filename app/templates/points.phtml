@@ -1,0 +1,46 @@
+<?php $db = Services::getDBConnection() ?>
+<?php $users = $db->query(
+    'SELECT
+      u.last_name,
+      SUM(CASE WHEN (points > 0) AND (type_id = 1) THEN points ELSE 0 END) AS positive,
+      SUM(CASE WHEN (points < 0) AND (type_id = 1) THEN points ELSE 0 END) AS negative,
+      SUM(CASE WHEN (type_id = 1) THEN points ELSE 0 END) AS balance,
+      SUM(CASE WHEN (type_id = 2) THEN points ELSE 0 END) AS spend
+    FROM history AS h
+      INNER JOIN users AS u ON u.user_id = h.user_id
+    GROUP BY h.user_id'
+)?>
+<script>
+    $(function() {
+        $('table#points').tablesorter({
+            theme : 'bootstrap',
+            sortList: [[3,1]],
+            headerTemplate: '{content} {icon}',
+            widgets    : ['zebra','columns', 'uitheme']
+        });
+    });
+</script>
+<div class="container">
+    <table id="points">
+        <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Плюс</th>
+            <th>Минус</th>
+            <th>Баланс</th>
+            <th>Потрачено</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($users as $user) : ?>
+            <tr>
+                <td><?php echo $user['last_name'] ?></td>
+                <td><?php echo $user['positive'] ?></td>
+                <td><?php echo $user['negative'] ?></td>
+                <td><?php echo $user['balance'] ?></td>
+                <td><?php echo $user['spend'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
