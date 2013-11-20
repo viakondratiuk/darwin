@@ -6,19 +6,12 @@
            INNER JOIN link_groups AS lg ON l.group_id = lg.group_id
          ORDER BY group_name, created DESC'
     );
+    foreach ($links as $link) {
+        $out[$link['group_name']][] = array('title' => $link['title'], 'href' => $link['href'], 'created' => $link['created']);
+    }
 ?>
-<script>
-    $(function() {
-        $('table#links').tablesorter({
-            theme : 'bootstrap',
-            sortList: [[2,1]],
-            headerTemplate: '{content} {icon}',
-            widgets    : ['zebra','columns', 'uitheme']
-        });
-    });
-</script>
 <div class="container">
-    <table id="links">
+    <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>Группа</th>
@@ -27,11 +20,18 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach($links as $link): ?>
+        <?php foreach($out as $key => $items): ?>
             <tr>
-                <td><?php echo $link['group_name'] ?></td>
-                <td><a href="<?php echo $link['href'] ?>"><?php echo $link['title'] ?></a></td>
-                <td><?php echo $link['created'] ?></td>
+                <td rowspan="<?php echo count($items) ?>"><?php echo $key ?></td>
+            <?php $last_key = end(array_keys($items)) ?>
+            <?php foreach ($items as $key => $item): ?>
+                <td><a href="<?php echo $item['href'] ?>"><?php echo $item['title'] ?></a></td>
+                <td><?php echo $item['created'] ?></td>
+            <?php if ($key !== $last_key): ?>
+            </tr>
+            <tr>
+            <?php endif; ?>
+            <?php endforeach; ?>
             </tr>
         <?php endforeach; ?>
         </tbody>
