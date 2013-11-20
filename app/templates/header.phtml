@@ -21,6 +21,8 @@
 <div class="container">
     <ul class="nav nav-pills">
         <li <?php if($mode == ''): ?>class="active"<?php endif; ?>><a href="/">Очки</a></li>
+        <li <?php if($mode == 'history'): ?>class="active"<?php endif; ?>><a href="index.php?mode=history">История</a></li>
+        <li <?php if($mode == 'market'): ?>class="active"<?php endif; ?>><a href="index.php?mode=market">Маркет</a></li>
         <li <?php if($mode == 'plans'): ?>class="active"<?php endif; ?>><a href="index.php?mode=plans">План</a></li>
         <li <?php if($mode == 'links'): ?>class="active"<?php endif; ?>><a href="index.php?mode=links">Полезные ссылки</a></li>
     </ul>

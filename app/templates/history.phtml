@@ -1,0 +1,42 @@
+<?php
+    $db = Services::getDBConnection();
+    $history = $db->query(
+        'SELECT h.created, u.last_name, h.points, h.comment, h.type_id
+         FROM history AS h
+         INNER JOIN users AS u ON h.user_id = u.user_id'
+    );
+?>
+<script>
+    $(function() {
+        $('table#history').tablesorter({
+            theme : 'bootstrap',
+            sortList: [[0,1]],
+            headerTemplate: '{content} {icon}',
+            widgets    : ['zebra','columns', 'uitheme']
+        });
+    });
+</script>
+<div class="container">
+    <table id="history">
+        <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Фамилия</th>
+            <th>Очки</th>
+            <th>Комментарий</th>
+            <th>Тип</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($history as $item) : ?>
+            <tr>
+                <td><?php echo $item['created'] ?></td>
+                <td><?php echo $item['last_name'] ?></td>
+                <td><?php echo $item['points'] ?></td>
+                <td><?php echo $item['comment'] ?></td>
+                <td><?php if($item['type_id'] == POINTS_BALANCE) { echo 'Баланс'; } else if ($item['type_id'] == POINTS_SPEND) { echo 'Маркет'; } ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

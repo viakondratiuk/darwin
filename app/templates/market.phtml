@@ -1,0 +1,37 @@
+<?php
+    $db = Services::getDBConnection();
+    $market = $db->query(
+        'SELECT m.points, m.description
+           FROM market AS m
+           WHERE m.active = 1
+         ORDER BY m.points  DESC'
+    );
+?>
+<script>
+    $(function() {
+        $('table#market').tablesorter({
+            theme : 'bootstrap',
+            sortList: [[0,1]],
+            headerTemplate: '{content} {icon}',
+            widgets    : ['zebra','columns', 'uitheme']
+        });
+    });
+</script>
+<div class="container">
+    <table id="market">
+        <thead>
+        <tr>
+            <th>Очки</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($market as $item): ?>
+            <tr>
+                <td><?php echo $item['points'] ?></td>
+                <td><?php echo $item['description'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
