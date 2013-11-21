@@ -18,6 +18,7 @@
         body {padding-top: 10px;}
         .evolution {position: absolute;bottom: 0;right: 0;}
         .evolution-container {height: 65px; position: relative;}
+        .blood {color: #b94a48;font-weight: bold;}
     </style>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -33,6 +34,7 @@
         <li <?php if($mode == ''): ?>class="active"<?php endif; ?>><a href="/">Очки</a></li>
         <li <?php if($mode == 'history'): ?>class="active"<?php endif; ?>><a href="index.php?mode=history">История</a></li>
         <li <?php if($mode == 'market'): ?>class="active"<?php endif; ?>><a href="index.php?mode=market">Маркет</a></li>
+        <li <?php if($mode == 'rules'): ?>class="active"<?php endif; ?>><a class="alert alert-error" href="index.php?mode=rules">Правила</a></li>
         <li <?php if($mode == 'plans'): ?>class="active"<?php endif; ?>><a href="index.php?mode=plans">План</a></li>
         <li <?php if($mode == 'links'): ?>class="active"<?php endif; ?>><a href="index.php?mode=links">Полезные ссылки</a></li>
     </ul>
