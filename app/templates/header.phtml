@@ -16,6 +16,8 @@
     <link href="css/tablesorter/theme.bootstrap.css" rel="stylesheet" media="screen">
     <style>
         body {padding-top: 10px;}
+        .evolution {position: absolute;bottom: 0;right: 0;}
+        .evolution-container {height: 65px; position: relative;}
     </style>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -24,8 +26,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="pagination-centered">
-        <img class="text-center" width="150" src="img/evolution/<?php echo rand(1, 8) ?>.jpg" />
+    <div class="evolution-container pagination-right">
+        <img width="170" class="evolution" src="img/evolution/<?php echo rand(1, 8) ?>.jpg" />
     </div>
     <ul class="nav nav-pills">
         <li <?php if($mode == ''): ?>class="active"<?php endif; ?>><a href="/">Очки</a></li>
