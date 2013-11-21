@@ -8,6 +8,9 @@
 
 // Set default timezone
 date_default_timezone_set('UTC');
+
+define ('DOCUMENT_ROOT', __DIR__);
+
 define('POINTS_BALANCE', 1);
 define('POINTS_SPEND', 2);
 
@@ -17,7 +20,7 @@ class Services {
     public static function getDBConnection()
     {
         if (!isset(self::$services['dbconnection'])) {
-            $db = new PDO('sqlite:../db/evolution.sqlite3');
+            $db = new PDO('sqlite:' . DOCUMENT_ROOT .'/db/evolution.sqlite3');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$services['dbconnection'] = $db;
         }
