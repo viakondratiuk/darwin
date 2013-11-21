@@ -17,7 +17,7 @@ class Services {
     public static function getDBConnection()
     {
         if (!isset(self::$services['dbconnection'])) {
-            $db = new PDO('sqlite:db/points-manager.sqlite3');
+            $db = new PDO('sqlite:../db/evolution.sqlite3');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$services['dbconnection'] = $db;
         }
@@ -25,4 +25,3 @@ class Services {
         return self::$services['dbconnection'];
     }
 }
-
