@@ -1,2 +1,2 @@
-points-manager
+Progress & motivation
 ==============
