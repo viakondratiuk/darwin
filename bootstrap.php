@@ -20,7 +20,7 @@ class Services {
     public static function getDBConnection()
     {
         if (!isset(self::$services['dbconnection'])) {
-            $db = new PDO('sqlite:' . DOCUMENT_ROOT .'/db/evolution.sqlite3');
+            $db = new PDO('sqlite:' . DOCUMENT_ROOT .'/db/darwin.sqlite3');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$services['dbconnection'] = $db;
         }
