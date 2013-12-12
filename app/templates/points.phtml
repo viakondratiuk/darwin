@@ -4,7 +4,6 @@
       u.last_name,
       SUM(CASE WHEN (points > 0) AND (type_id = 1) THEN points ELSE 0 END) AS positive,
       SUM(CASE WHEN (points < 0) AND (type_id = 1) THEN points ELSE 0 END) AS negative,
-      SUM(CASE WHEN (type_id = 1) THEN points ELSE 0 END) AS balance,
       SUM(CASE WHEN (type_id = 2) THEN points ELSE 0 END) AS spend
     FROM history AS h
       INNER JOIN users AS u ON u.user_id = h.user_id
@@ -37,7 +36,7 @@
                 <td><?php echo $user['last_name'] ?></td>
                 <td><?php echo $user['positive'] ?></td>
                 <td><?php echo $user['negative'] ?></td>
-                <td><?php echo $user['balance'] ?></td>
+                <td><?php echo $user['positive'] + $user['negative'] + $user['spend'] ?></td>
                 <td><?php echo $user['spend'] ?></td>
             </tr>
         <?php endforeach; ?>
